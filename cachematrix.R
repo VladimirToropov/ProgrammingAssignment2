@@ -19,7 +19,7 @@ makeCacheMatrix <- function(x = matrix()) {   ## Creates a special object, so ca
   list(set = set, get = get, setinv = setinv, getinv = getinv)          ## Returning the list of functions
 }
 
-## -------[cacheSolve] function realization ------------------------------------------------------------------
+## --------------------------------[cacheSolve] function realization -----------------------------------------
 
 cacheSolve <- function(x, ...) {              ## Computes the inverse of the special "matrix" object
                                               ## or retrieves the inverse from the cache
