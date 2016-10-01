@@ -1,37 +1,35 @@
-## +-------------------------------------------------------------------+
-## |                                                                   |
-## |             cachematrix.R - Programming Assignment 2              |
-## |                                                                   |
-## +-------------------------------------------------------------------+
+## +---------------------------------------------------------------------------------------------------------+
+## |                                                                                                         |
+## |                              cachematrix.R - Programming Assignment 2                                   |
+## |                                                                                                         |
+## +---------------------------------------------------------------------------------------------------------+
 
-## -------[makeCacheMatrix] function realization -----------------------
-##        Creates a special object, so called "matrix" object,
-##        that is really a list and that can cache its inverse
+## --------------------------------[makeCacheMatrix] function realization ------------------------------------
 
-makeCacheMatrix <- function(x = matrix()) {
-  i <- NULL
-  set <- function(y) {
+makeCacheMatrix <- function(x = matrix()) {   ## Creates a special object, so called "matrix" object, that is 
+                                              ## really a list and that can cache its inverse
+  i <- NULL                                                             ## Inverse matrix reseting
+  set <- function(y) {                                                  ## Setting the matrix
     x <<- y
     i <<- NULL
   }
-  get <- function() x
-  setinv <- function(solve) i <<- solve
-  getinv <- function() i
-  list(set = set, get = get, setinv = setinv, getinv = getinv)
+  get <- function() x                                                   ## Getting the matrix
+  setinv <- function(solve) i <<- solve                                 ## Setting the inverse matrix
+  getinv <- function() i                                                ## Getting the inverse matrix
+  list(set = set, get = get, setinv = setinv, getinv = getinv)          ## Returning the list of functions
 }
 
-## -------[cacheSolve] function realization ----------------------------
-##        Computes the inverse of the special "matrix" object
-##        or retrieves the inverse from the cache
+## -------[cacheSolve] function realization ------------------------------------------------------------------
 
-cacheSolve <- function(x, ...) {
-  i <- x$getinv()
-  if(!is.null(i)) {
+cacheSolve <- function(x, ...) {              ## Computes the inverse of the special "matrix" object
+                                              ## or retrieves the inverse from the cache
+  i <- x$getinv()                                                       ## Receiving inverse matrix
+  if(!is.null(i)) {                                                     ## If it already has been calculated
     message("Inverse matrix already exists! Getting cached data.")
-    return(i)
+    return(i)                                                           ## Returning result
   }
-  data <- x$get()
-  i <- solve(data, ...)
-  x$setinv(i)
-  i
+  data <- x$get()                                                       ## Else if it hasn't
+  i <- solve(data, ...)                                                 ## Getting the inverse matrix
+  x$setinv(i)                                                           ## Setting the inverse matrix
+  i                                                                     ## Returning result
 }
